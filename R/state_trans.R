@@ -4,37 +4,19 @@
 #' and calculate the transitions from one state to other state(s) using the transition rate(s).
 #'
 #' @param origin A number which represents the column index \code{s.matrix} you want to do the transition from
-#' @param new.states A numeric vector or a number which represents the column index \code{s.matrix} you want as the destination(s) for the transition
+#' @param new.states A numeric vector or a number which represents the column index \code{s.matrix} you want
+#'     as the destination(s) for the transition
 #' @param params A numeric vector of similar length to \code{new.states} which serves as the transition rate(s)
 #' @param s.matrix A state matrix created from \code{syn_pop} function
-#' @return A transition matrix of the same dimension as \code{s.matrix}. -1 indicates that the individual has left the corresponding state.
-#'     +1 indicates that the individual has become the corresponding state.
+#' @return A transition matrix of the same dimension as \code{s.matrix}. -1 indicates that the individual has left
+#'     the corresponding state. +1 indicates that the individual has become the corresponding state.
 #' @examples
 #' pop <- syn_pop(c(19,1,0,0))
 #' state_trans(1,2,.1,pop)
 #' state_trans(1,4,100,pop)
 #'
 #' @export
-
-#this function is used
-#even if there's no terminal state, such as in SIRS models,
-#transitions from R to S has to be made first
-
-
-#next problem
-#testing for transitions to multiple states from a single state
-#example
-# in SEIRS system, E may get to I or R (without being infectious)
-# T1: E -> I, E -> R
-# T2: I -> R
-# original I is c(0,0,0,0,0,0,1)
-# New I from T1:c(0,0,1,1,0,0,1) #last I is the original I
-# New I after T2: c(0,0,0,0,0,0,1)
-# I have to make
-# c(0,0,0,0,0,0,1)+ c(0,0,1,1,0,0,1) == c(0,0,1,1,0,0,1)
-# test if their sum is >= 1. it'll give a logical matrix. add 0 to the matrix and you'll get back a numeric matrix
-
-#New R from T1:c(0,0,1,1,0,0,1) #last R is the original R
+#' @importFrom stats runif
 
 state_trans <- function(origin, new.states, params, s.matrix){
   #origin   #single number

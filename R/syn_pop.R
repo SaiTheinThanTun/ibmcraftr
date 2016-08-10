@@ -2,21 +2,16 @@
 #'
 #' Populate a matrix in which columns represent the states of the individuals and rows represent the individuals.
 #'
-#' @param states A numeric vector with each element representing the number of individuals in a particular state its index corresponds to.
+#' @param states A numeric vector with each element representing the number of individuals in a particular state
+#'     its index corresponds to.
 #' @param shuffle A logical value to enable shuffling of the individuals (rows) in the resulting matrix.
-#' @return A matrix of 0s, and 1s. The rows representing the individuals and the columns representing the states the individuals are in
+#' @return A matrix of 0s, and 1s. The rows representing the individuals and the columns representing the states
+#'     the individuals are in
 #' @examples
 #' syn_pop(c(3,2,1))
 #' syn_pop(c(0,0,1,5), shuffle=TRUE)
 #'
 #' @export
-
-#this is a function for synthesizing the states of population in a matrix with 0s and 1s
-#when an input of vector (each value representing the number of individuals in that state) is given
-
-#length of the input vector gives out the number of states (which is also total columns)
-#sum of the vector gives the total population size (which is also total rows)
-#proportions of each state is calculated by dividing the vector with total population size
 
 syn_pop <- function(states, shuffle=FALSE){ #states is the vector variable, each element represent the number of individuals belonging to that state (indexed)
   #this is assuming that an individual can have only one state at a single timestep
