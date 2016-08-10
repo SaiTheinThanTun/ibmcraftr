@@ -17,10 +17,10 @@ state_trans(origin, new.states, params, s.matrix)
 }
 \value{
 A transition matrix of the same dimension as \code{s.matrix}. -1 indicates that the individual has left the corresponding state.
-    +1 represents that the individual has become the corresponding state.
+    +1 indicates that the individual has become the corresponding state.
 }
 \description{
-Take in the matrix of the states of synthetic population (created by syn_pop function)
+Take in the matrix of the states of synthetic population (created by \code{syn_pop} function)
 and calculate the transitions from one state to other state(s) using the transition rate(s).
 }
 \examples{

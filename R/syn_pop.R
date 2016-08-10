@@ -8,6 +8,8 @@
 #' @examples
 #' syn_pop(c(3,2,1))
 #' syn_pop(c(0,0,1,5), shuffle=TRUE)
+#'
+#' @export
 
 #this is a function for synthesizing the states of population in a matrix with 0s and 1s
 #when an input of vector (each value representing the number of individuals in that state) is given

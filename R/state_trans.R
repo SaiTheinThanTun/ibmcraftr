@@ -13,6 +13,8 @@
 #' pop <- syn_pop(c(19,1,0,0))
 #' state_trans(1,2,.1,pop)
 #' state_trans(1,4,100,pop)
+#'
+#' @export
 
 #this function is used
 #even if there's no terminal state, such as in SIRS models,
