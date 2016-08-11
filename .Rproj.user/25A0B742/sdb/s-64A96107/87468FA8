@@ -1,0 +1,17 @@
+{
+    "contents" : "Package: ibmcraftr\nType: Package\nTitle: Toolkits to Develop Individual-Based Models in Infectious Disease\nVersion: 0.0.0.9004\nDate: 2016-08-10\nAuthors@R: person(\"Sai Thein Than\", \"Tun\", email = \"theinthantun.sai@gmail.com\", role = c(\"aut\", \"cre\"))\nDescription: It provides a generic set of tools for initializing a synthetic\n         population with each individual in specific disease states, and\n         making transitions between those disease states according to the rates\n         calculated on each timestep. Additional functions will follow for changing\n         attributes on demographic, health belief and movement.\nLicense: MIT + file LICENSE\nLazyData: TRUE\nRoxygenNote: 5.0.1\n",
+    "created" : 1470837797102.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1900454637",
+    "id" : "87468FA8",
+    "lastKnownWriteTime" : 1470878614,
+    "path" : "D:/Dropbox/IBM project_Sai/r package/ibmcraftr/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "dcf"
+}

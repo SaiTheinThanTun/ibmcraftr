@@ -1,0 +1,17 @@
+{
+    "contents" : "## Test environments\n* local Windows 8.1 install, R 3.3.0\n* ubuntu 12.04 (on travis-ci), R 3.3.1\n* win-builder (devel)\n\n## R CMD check results\nThere were no ERRORs or WARNINGs.\nThere was 1 NOTE only when using devtools::build_win():\n* checking CRAN incoming feasibility ... NOTE\nI found out that it is a reminder to CRAN maintainers \nto check that the submission comes actually from his maintainer.\nThis is my very first submission.\n\n## Downstream dependencies\nThere are currently no downstream dependencies for this\npackage.\n",
+    "created" : 1470879464093.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1447860044",
+    "id" : "AD5248E0",
+    "lastKnownWriteTime" : 1470882255,
+    "path" : "D:/Dropbox/IBM project_Sai/r package/ibmcraftr/cran-comments.md",
+    "project_path" : "cran-comments.md",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "markdown"
+}
