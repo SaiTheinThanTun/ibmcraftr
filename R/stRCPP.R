@@ -1,7 +1,9 @@
-#' Make state transitions.
+#' Make state transitions using Rcpp.
 #'
 #' Take in the matrix of the states of synthetic population (created by \code{syn_pop} function)
-#' and calculate the transitions from one state to other state(s) using the transition rate(s).
+#' and calculate the transitions from one state to other state(s) using the transition probabilities [not rate(s)].
+#' The major difference from the R alone version was that instead of having the transition rate(s),
+#' transition probabilities are used. These probabilities will thus be calculated with another function.
 #'
 #' @param origin A number which represents the column index \code{s.matrix} you want to do the transition from
 #' @param new.states A numeric vector or a number which represents the column index \code{s.matrix} you want
@@ -12,13 +14,13 @@
 #'     the corresponding state. +1 indicates that the individual has become the corresponding state.
 #' @examples
 #' pop <- syn_pop(c(19,1,0,0))
-#' state_trans(1,2,.1,pop)
-#' state_trans(1,4,100,pop)
+#' stRCPP(1,2,.1,pop)
+#'
 #'
 #' @export
 #' @importFrom stats runif
 
-state_trans <- function(origin, new.states, params, s.matrix){
+stRCPP <- function(origin, new.states, params, s.matrix){
   #origin   #single number
   #new.states  #a vector of length n (to index the matrix)
   #params #a vector of length m (to calculate the probabilities)
