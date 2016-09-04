@@ -12,23 +12,22 @@ IntegerMatrix stateT(int origin, IntegerVector newstates, NumericVector cumuprob
   // for loop for each new state starts here
   // remember that the index in C++ starts at 0
   for (int i=0; i<newstates.size(); i++){
+    //initializing the indexed values
+    int newstateScalar = newstates[i];
+    double cum_probs = cumuprobs[i];
+
     // generate random numbers for every case
     NumericVector rno = runif(ncases);
 
-    //following codes could be used
-    int tmp = test(i) < x;
-    result(i) = tmp*2;
-
-    //expend
-    NumericVector cumuprobs =
-      //multiplication of numeric(double scalar) and numericVector is possible
-      //and so is integer(scalar) and IntegerVector
+    //  multiplication of numeric(double scalar) and numericVector is possible
+    //  and so is integer(scalar) and IntegerVector
+    //  Calculation for the formulas below:
 
     // subset the sMatrix for origin and newstate(s)
-    sMatrix(_,i) = //equation here
-      sMatrix(_,origin) = //equation here
+    sMatrix(_,newstateScalar) = //equation here: s.matrix[,i]+(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob)
+    sMatrix(_,origin) = //equation here: s.matrix[,origin]-(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob))
 
-      // test which cases will advance to next state based on the cumulative probabilities (cumuprobs)
+    // test which cases will advance to next state based on the cumulative probabilities (cumuprobs)
 
   }
 
