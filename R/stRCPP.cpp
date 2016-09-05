@@ -9,7 +9,7 @@ NumericMatrix stateT(int origin, IntegerVector newstates, NumericVector cumuprob
   // identify the number of cases
   int ncases = sMatrix.nrow();
   double last_probs = cumuprobs[0];
-  NumericMatrix sMatrixTMP = sMatrix;
+  NumericMatrix sMatrixTMP = clone(sMatrix);
 
   //  adjustment for the state index (R starts at 1 and C++ starts at 0)
   newstates = newstates-1;
@@ -34,11 +34,11 @@ NumericMatrix stateT(int origin, IntegerVector newstates, NumericVector cumuprob
     LogicalVector tmp2 = rno > last_probs;
     NumericVector test2 = as<NumericVector> (tmp2);
 
-    NumericVector change = sMatrix(_,origin) * test1 * test2;
+    NumericVector change = sMatrixTMP(_,origin) * test1 * test2;
 
     // subset the sMatrix for origin and newstate(s)
-    sMatrixTMP(_,newstateScalar) = sMatrix(_,newstateScalar) + change; //equation here: s.matrix[,i]+(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob)
-    sMatrixTMP(_,origin) = sMatrix(_,origin) - change; //equation here: s.matrix[,origin]-(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob))
+    sMatrixTMP(_,newstateScalar) = sMatrixTMP(_,newstateScalar) + change; //equation here: s.matrix[,i]+(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob)
+    sMatrixTMP(_,origin) = sMatrixTMP(_,origin) - change; //equation here: s.matrix[,origin]-(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob))
 
     // advance the last_probs
     last_probs = probs_for;
