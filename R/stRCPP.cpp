@@ -7,9 +7,10 @@ NumericMatrix stateT(int origin, IntegerVector newstates, NumericVector cumuprob
   // length of cumuprobs is +1 than newstates
 
   // identify the number of cases
-  int ncases = sMatrix.nrow();
-  double last_probs = cumuprobs[0];
-  NumericMatrix sMatrixTMP = clone(sMatrix);
+  int ncases = sMatrix.nrow(); // .nrow() is a function from cpp
+  double last_probs = cumuprobs[0]; //strating from the first transition
+  NumericMatrix sMatrixTMP = clone(sMatrix); //Rcpp uses referencing by pointers
+  //without cloning, Rcpp overwrites the Matrix (even from R global environment, no matter how you copied it)
 
   //  adjustment for the state index (R starts at 1 and C++ starts at 0)
   newstates = newstates-1;
@@ -22,19 +23,20 @@ NumericMatrix stateT(int origin, IntegerVector newstates, NumericVector cumuprob
     int newstateScalar = newstates[i];
     double probs_for = cumuprobs[i+1]; // state will advance if rand is between last_probs and probs_for
 
-    // generate random numbers for every case
+    // generate random numbers for every case, R function is used here since C++ random no. generator is not good
     NumericVector rno = runif(ncases);
 
-    //  multiplication of numeric(double scalar) and numericVector is possible
-    //  and so is integer(scalar) and IntegerVector
-    //  Calculation for the formulas below:
-    LogicalVector tmp = rno < probs_for;
-    NumericVector test1 = as<NumericVector> (tmp);
+    //  multiplication of numeric (double scalar and numericVector) is possible
+    //  and so is integer(scalar and IntegerVector)
+
+    //  test for the 2 conditions:
+    LogicalVector tmp = rno < probs_for; // |____stay____|_____state1____|_____state2_____|
+    NumericVector test1 = as<NumericVector> (tmp); //Transformation of logical to numeric vector
     // test which cases will advance to next state based on the cumulative probabilities (cumuprobs)
     LogicalVector tmp2 = rno > last_probs;
     NumericVector test2 = as<NumericVector> (tmp2);
 
-    NumericVector change = sMatrixTMP(_,origin) * test1 * test2;
+    NumericVector change = sMatrixTMP(_,origin) * test1 * test2; // calc the change subsetting is done by (_,origin)
 
     // subset the sMatrix for origin and newstate(s)
     sMatrixTMP(_,newstateScalar) = sMatrixTMP(_,newstateScalar) + change; //equation here: s.matrix[,i]+(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob)
