@@ -10,6 +10,7 @@
 #' cumprob(c(.2,.2,.9), actual=TRUE)
 #' cumprob(c(.2,.2,.2))
 #'
+#' @export
 
 
 
