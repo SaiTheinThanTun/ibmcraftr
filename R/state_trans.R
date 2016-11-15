@@ -32,9 +32,9 @@ state_trans <- function(origin, new.states, params, s.matrix){
   org.s.matrix <- s.matrix    #keeping the original matrix ??? for what?
 
   #cummulative probability
-  probs <- 1-exp(-params*1) # calc probs from rates
+  #probs <- 1-exp(-params*1) # calc probs from rates
 
-  cum_probs <- cumprob(probs) #cumprob is a seperate function to calculate the cumulative probabilities
+  cum_probs <- cumprob(params) #cumprob is a seperate function to calculate the cumulative probabilities
 
   last_prob <- cum_probs[1]
 
