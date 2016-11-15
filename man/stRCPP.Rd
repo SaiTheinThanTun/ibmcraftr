@@ -30,6 +30,5 @@ transition probabilities are used. These probabilities will thus be calculated w
 pop <- syn_pop(c(19,1,0,0))
 stRCPP(1,2,.1,pop)
 
-
 }
 

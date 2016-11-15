@@ -16,10 +16,12 @@
 #' pop <- syn_pop(c(19,1,0,0))
 #' stRCPP(1,2,.1,pop)
 #'
+#' @useDynLib ibmcraftr
 #'
 #' @export
 #' @importFrom stats runif
-#'
+#' @importFrom Rcpp sourceCpp
+
 
 #sourceCpp("D:/OneDrive/Rcpp/stRCPP.cpp")
 stRCPP <- function(origin, new.states, params, s.matrix){
@@ -44,7 +46,7 @@ stRCPP <- function(origin, new.states, params, s.matrix){
 
 
   #load and run the Rcpp codes here
-  #s.matrix <- stateT(origin, new.states, cum_probs, s.matrix)
+  s.matrix <- stateT(origin, new.states, cum_probs, s.matrix)
 
   #last_prob <- cum_probs[1]
 

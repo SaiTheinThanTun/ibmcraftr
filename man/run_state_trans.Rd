@@ -26,8 +26,8 @@ pop <- syn_pop(c(19,1,0,0,0)) #synthesizing population
 b <- 2 #effective contact rate
 param <- list(
 list(1,c(2,5),c(NA,.1)), #transition from state 1 to 2 using FOI lambda
-list(2,3,100), #transition from state 2 to 3, the 3rd term 100 ensures the near 100\% transition to the next stage
-list(3,4,100)
+list(2,3,100), #transition from state 2 to 3,
+list(3,4,100)  #the 3rd term ensures the transition to the next stage
 )
 
 timesteps <- 10
