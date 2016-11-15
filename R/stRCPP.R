@@ -23,7 +23,7 @@
 #' @importFrom Rcpp sourceCpp
 
 
-#sourceCpp("D:/OneDrive/Rcpp/stRCPP.cpp")
+#sourceCpp("D:/OneDrive/Rcpp/stRCPP.cpp") #same version as in the package folder
 stRCPP <- function(origin, new.states, params, s.matrix){
   #origin   #single number
   #new.states  #a vector of length n (to index the matrix)
@@ -33,12 +33,10 @@ stRCPP <- function(origin, new.states, params, s.matrix){
   #dimension check
   if(ncol(s.matrix) <  max(c(origin, new.states))) stop("no such states in the input matrix") #stop if the dim requested is higher than input matrix
 
-  #origin_v <- s.matrix[,origin] #initializing a new vector for calculation
-  #lo <- length(origin_v) #length of origin
-  org.s.matrix <- s.matrix    #keeping the original matrix ??? for what?
+  org.s.matrix <- s.matrix    #keeping the original matrix for calculating the movement
 
-  #cummulative probability
-  probs <- 1-exp(-params*1) # calc probs from rates
+  #cummulative probability # a seperate function will replace these calculation for cumprob
+  probs <- 1-exp(-params*1) # calc probs from rates #this will be done in the "run_state_trans" function
   compliments <- 1-probs
   sum_compliments <- sum(compliments)
   maxprobs <- sum(probs,compliments)
@@ -48,16 +46,5 @@ stRCPP <- function(origin, new.states, params, s.matrix){
   #load and run the Rcpp codes here
   s.matrix <- stateT(origin, new.states, cum_probs, s.matrix)
 
-  #last_prob <- cum_probs[1]
-
-  # for(i in new.states){
-  #   probs_for <- cum_probs[which(new.states==i)+1] #calculating probs_for for transition
-  #   rand <- runif(lo)
-  #
-  #   s.matrix[,i] <- s.matrix[,i]+(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob)) #origin is used here since ??
-  #   s.matrix[,origin] <- s.matrix[,origin]-(s.matrix[,origin]*(rand<probs_for)*(rand>last_prob))
-  #   #s.matrix[,-c(new.states,origin)] <- 0 #might not do this afterall!
-  #   last_prob <- probs_for
-  # }
   s.matrix-org.s.matrix
 }
