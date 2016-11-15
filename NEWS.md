@@ -1,3 +1,9 @@
+ibmcraftr 0.2.0
+===============
+
+- Previously, cummulative probability calculation has been written within state_trans and stRCPP functions.
+- Now this is replaced with cumprob function which is written specifically to do that. 
+
 ibmcraftr 0.1.0
 ===============
 

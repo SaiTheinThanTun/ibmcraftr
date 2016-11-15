@@ -35,13 +35,10 @@ stRCPP <- function(origin, new.states, params, s.matrix){
 
   org.s.matrix <- s.matrix    #keeping the original matrix for calculating the movement
 
-  #cummulative probability # a seperate function will replace these calculation for cumprob
   probs <- 1-exp(-params*1) # calc probs from rates #this will be done in the "run_state_trans" function
-  compliments <- 1-probs
-  sum_compliments <- sum(compliments)
-  maxprobs <- sum(probs,compliments)
-  cum_probs <- cumsum(c(sum_compliments,probs)/maxprobs)
 
+  #cummulative probability # a seperate function, cumprob, is now used
+  cum_probs <- cumprob(probs)
 
   #load and run the Rcpp codes here
   s.matrix <- stateT(origin, new.states, cum_probs, s.matrix)

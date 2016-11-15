@@ -6,6 +6,7 @@
 #' @param param A list of lists. Each low-level list must contain transition parameters required by the \code{state_trans} function.
 #' @param pop A state matrix created from \code{syn_pop} function. This matrix represents the states of the population.
 #' @param transient A character vector. Each element must include formula(e)/expression(s) to evaluate dynamic parameters after each timestep.
+#' @param useC A logical value, which is TRUE by default, will run \code{state_transition} function written in RCPP, \code{stRCPP}.
 #' @return A summary matrix of the states all individuals in the population are in.
 #' @examples
 #' pop <- syn_pop(c(19,1,0,0,0)) #synthesizing population
@@ -20,24 +21,39 @@
 #' transient <- c("param[[1]][[3]][1] <- b*sum(pop[,2],pop[,3])/sum(pop)")
 #' eval(parse(text=transient))
 #'
-#' run_state_trans(timesteps,param,pop,transient)
+#' run_state_trans(timesteps, param, pop, transient)
+#' run_state_trans(timesteps, param, pop, transient, useC = FALSE)
 #'
 #' @export
 #'
 
 
-run_state_trans <- function(timesteps, param, pop, transient=""){
+run_state_trans <- function(timesteps, param, pop, transient = "", useC = TRUE){
   Matrix.List <- list() #master matrix list initiazilation, to store the transition values each timestep
   sim.table <- matrix(NA, timesteps, ncol(pop))  #table to record the summaries each time step
-  for(i in 1:timesteps){
-    for(j in 1:length(param)){
-      Matrix.List[[j]] <- state_trans(param[[j]][[1]], param[[j]][[2]], param[[j]][[3]], pop)
-    }
-    pop <- Reduce('+', Matrix.List) + pop #Population after transition
+  if(useC){
+    for(i in 1:timesteps){
+      for(j in 1:length(param)){
+        Matrix.List[[j]] <- stRCPP(param[[j]][[1]], param[[j]][[2]], param[[j]][[3]], pop)
+      }
+      pop <- Reduce('+', Matrix.List) + pop #Population after transition
 
-    eval(parse(text=transient))
-    sim.table[i,] <- colSums(pop) #getting summaries of the population
+      eval(parse(text=transient))
+      sim.table[i,] <- colSums(pop) #getting summaries of the population
+    }
   }
+  else {
+    for(i in 1:timesteps){
+      for(j in 1:length(param)){
+        Matrix.List[[j]] <- state_trans(param[[j]][[1]], param[[j]][[2]], param[[j]][[3]], pop)
+      }
+      pop <- Reduce('+', Matrix.List) + pop #Population after transition
+
+      eval(parse(text=transient))
+      sim.table[i,] <- colSums(pop) #getting summaries of the population
+    }
+  }
+
   sim.table
 }
 

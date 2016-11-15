@@ -4,7 +4,7 @@
 \alias{run_state_trans}
 \title{Run state_trans function over a given number of timesteps.}
 \usage{
-run_state_trans(timesteps, param, pop, transient = "")
+run_state_trans(timesteps, param, pop, transient = "", useC = TRUE)
 }
 \arguments{
 \item{timesteps}{A numeric scalar based on which the state_trans function will run for that specific no. of \code{timesteps} and accumulate the results.}
@@ -14,6 +14,8 @@ run_state_trans(timesteps, param, pop, transient = "")
 \item{pop}{A state matrix created from \code{syn_pop} function. This matrix represents the states of the population.}
 
 \item{transient}{A character vector. Each element must include formula(e)/expression(s) to evaluate dynamic parameters after each timestep.}
+
+\item{useC}{A logical value, which is TRUE by default, will run \code{state_transition} function written in RCPP, \code{stRCPP}.}
 }
 \value{
 A summary matrix of the states all individuals in the population are in.
@@ -34,7 +36,8 @@ timesteps <- 10
 transient <- c("param[[1]][[3]][1] <- b*sum(pop[,2],pop[,3])/sum(pop)")
 eval(parse(text=transient))
 
-run_state_trans(timesteps,param,pop,transient)
+run_state_trans(timesteps, param, pop, transient)
+run_state_trans(timesteps, param, pop, transient, useC = FALSE)
 
 }
 
