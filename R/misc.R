@@ -13,3 +13,6 @@
 rate2prob <- function(rates){
   1-exp(-rates*1)
 }
+
+#unload
+.onUnload <- function(libpath) { library.dynam.unload("ibmcraftr", libpath) }
