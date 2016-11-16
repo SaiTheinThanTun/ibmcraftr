@@ -1,6 +1,6 @@
 ## Test environments
 * local Windows 8.1 install, R 3.3.0
-* ubuntu 12.04 (on travis-ci), R 3.3.0
+* ubuntu 12.04 (on travis-ci), R 3.3.1
 * win-builder (devel)
 
 ## R CMD check results
