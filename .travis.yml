@@ -2,7 +2,7 @@
 
 language: r
 r:
-	- release
+  - release
 sudo: false
 cache: packages
 env:
